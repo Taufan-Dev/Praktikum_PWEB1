@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menampilkan dan Menyembunyikan Gambar</title>
+    <script src="js/jquery-3.7.1.js"></script>
+  </head>
+  <body>
+    <h1>Menampilkan dan Menyembunyikan Gambar dengan jQuery</h1>
+    <button id="tampilkan">Tampilkan Gambar</button>
+    <button id="sembunyikan">Sembunyikan Gambar</button>
+    <br />
+    <img id="gambar" src="../Code-M1/asset/gambar/fkom.png" alt="Gambar" />
+
+    <script>
+      $(document).ready(function () {
+        $("#tampilkan").click(function () {
+          console.log("Tombol Tampilkan Diklik");
+          $("#gambar").fadeIn();
+        });
+
+        $("#sembunyikan").click(function () {
+          console.log("Tombol Sembunyikan Diklik");
+          $("#gambar").fadeOut();
+        });
+      });
+    </script>
+  </body>
+</html>

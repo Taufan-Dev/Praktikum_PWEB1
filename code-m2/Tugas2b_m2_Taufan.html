@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Data Fasilitas</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      h2 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+      }
+
+      label {
+        font-weight: bold;
+        color: #333;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      input[type="time"] {
+        width: 100%;
+        padding: 8px;
+        margin: 8px 0 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #5cb85c;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #4cae4c;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Form Data Fasilitas</h2>
+
+    <form action="/submit-data-fasilitas" method="POST">
+      <label for="id_fasilitas">ID Fasilitas:</label>
+      <input type="text" id="id_fasilitas" name="id_fasilitas" required />
+
+      <label for="nama_fasilitas">Nama Fasilitas:</label>
+      <input type="text" id="nama_fasilitas" name="nama_fasilitas" required />
+
+      <label for="harga_weekend">Harga Weekend (Rp):</label>
+      <input
+        type="number"
+        id="harga_weekend"
+        name="harga_weekend"
+        min="0"
+        required
+      />
+
+      <label for="harga_weekday">Harga Weekday (Rp):</label>
+      <input
+        type="number"
+        id="harga_weekday"
+        name="harga_weekday"
+        min="0"
+        required
+      />
+
+      <label for="kuota">Kuota:</label>
+      <input type="number" id="kuota" name="kuota" min="0" required />
+
+      <label for="jam_buka">Jam Buka:</label>
+      <input type="time" id="jam_buka" name="jam_buka" required />
+
+      <label for="jam_tutup">Jam Tutup:</label>
+      <input type="time" id="jam_tutup" name="jam_tutup" required />
+
+      <input type="submit" value="Simpan Data Fasilitas" />
+    </form>
+  </body>
+</html>

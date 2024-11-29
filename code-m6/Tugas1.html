@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Pemesanan</title>
+    <script src="js/jquery-3.7.1.js"></script>
+  </head>
+  <body>
+    <h1>Form Pemesanan</h1>
+    <form
+      method="get"
+      style="
+        background-color: #f1f5f9;
+        padding: 20px;
+        max-width: 100%;
+        margin: auto;
+      "
+    >
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label for="idPesanan" style="width: 150px">ID Pesanan:</label>
+        <input type="number" name="idPesanan" required style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Nama Pemesan:</label>
+        <input type="text" name="namaPemesan" style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Nomor Identitas:</label>
+        <input type="text" style="width: 100%" name="nomorIdentitas" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Tipe Kamar:</label>
+        <select name="tipeKamar">
+          <option>--Pilih--</option>
+          <option value="standar">STANDAR</option>
+          <option value="deluxe">DELUXE</option>
+          <option value="family">FAMILY</option>
+        </select>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Harga:</label>
+        <input type="text" style="width: 100%" name="harga" disabled />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Tanggal Pesan:</label>
+        <input type="date" style="width: 100%" name="tanggalPesan" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Durasi Menginap:</label>
+        <input type="number" name="durasiMenginap" /> <span>hari</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Termasuk Breakfast:</label>
+        <input type="checkbox" style="margin-left: 10px" name="breakfest" /> Ya
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Total Bayar:</label>
+        <input type="text" disabled style="width: 100%" name="totalBayar" />
+      </div>
+      <div style="text-align: center">
+        <button
+          type="button"
+          name="save"
+          value="simpan"
+          style="margin-right: 10px; background-color: blue; color: white"
+        >
+          SIMPAN
+        </button>
+        <button
+          type="reset"
+          name="cancel"
+          value="batal"
+          style="margin-right: 10px; background-color: red; color: white"
+        >
+          BATAL
+        </button>
+      </div>
+    </form>
+
+    <!-- Div untuk menampilkan nota (resume) -->
+    <div
+      id="nota"
+      style="
+        margin-top: 30px;
+        background-color: #e7f7e7;
+        padding: 20px;
+        border-radius: 10px;
+        display: none;
+      "
+    >
+      <h3>Nota Pemesanan</h3>
+      <table style="width: 100%; border-collapse: collapse">
+        <tr>
+          <td>Kode Pesanan</td>
+          <td>=</td>
+          <td id="resumeIdPesanan"></td>
+        </tr>
+        <tr>
+          <td>Nama Pemesan</td>
+          <td>=</td>
+          <td id="resumeNamaPemesan"></td>
+        </tr>
+        <tr>
+          <td>Nomor Identitas</td>
+          <td>=</td>
+          <td id="resumeNomorIdentitas"></td>
+        </tr>
+        <tr>
+          <td>Tipe Kamar</td>
+          <td>=</td>
+          <td id="resumeTipeKamar"></td>
+        </tr>
+        <tr>
+          <td>Harga</td>
+          <td>=</td>
+          <td id="resumeHarga"></td>
+        </tr>
+        <tr>
+          <td>Tanggal Pesan</td>
+          <td>=</td>
+          <td id="resumeTanggalPesan"></td>
+        </tr>
+        <tr>
+          <td>Durasi Menginap</td>
+          <td>=</td>
+          <td id="resumeDurasiMenginap"></td>
+        </tr>
+        <tr>
+          <td>Breakfast</td>
+          <td>=</td>
+          <td id="resumeBreakfast"></td>
+        </tr>
+        <tr>
+          <td>Jumlah Bayar</td>
+          <td>=</td>
+          <td id="resumeTotalBayar"></td>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        let priceByRoomType;
+
+        $("select[name='tipeKamar']").change(function () {
+          const roomType = $(this).val();
+          const priceField = $("input[name='harga']");
+
+          if (roomType === "standar") priceByRoomType = 100000;
+          if (roomType === "deluxe") priceByRoomType = 200000;
+          if (roomType === "family") priceByRoomType = 300000;
+
+          priceField.val(priceByRoomType);
+        });
+
+        $("button[name='save']").click(function () {
+          const rentDuration = $("input[name='durasiMenginap']").val();
+          const withBreakfast = $("input[name='breakfest']").is(":checked");
+          let totalPrice = priceByRoomType * rentDuration;
+
+          if (withBreakfast) totalPrice += 80000 * rentDuration;
+          if (rentDuration > 3) totalPrice -= totalPrice * 0.3;
+
+          $("input[name='totalBayar']").val(totalPrice);
+
+          $("#resumeIdPesanan").text($("input[name='idPesanan']").val());
+          $("#resumeNamaPemesan").text($("input[name='namaPemesan']").val());
+          $("#resumeNomorIdentitas").text(
+            $("input[name='nomorIdentitas']").val()
+          );
+          $("#resumeTipeKamar").text($("select[name='tipeKamar']").val());
+          $("#resumeHarga").text(priceByRoomType);
+          $("#resumeTanggalPesan").text($("input[name='tanggalPesan']").val());
+          $("#resumeDurasiMenginap").text(rentDuration);
+          $("#resumeBreakfast").text(withBreakfast ? "Ya" : "Tidak");
+          $("#resumeTotalBayar").text(totalPrice);
+
+          $("#nota").fadeIn();
+        });
+      });
+    </script>
+  </body>
+</html>

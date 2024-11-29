@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>contoh array 2 dimensi dan 3 dimensi taufan</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #output {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>contoh array 2 dimensi dan 3 dimensi taufan</h1>
+
+    <button onclick="tampilkanArray2D()">tampilkan array 2d</button>
+    <button onclick="tampilkanArray3D()">tampilkan array 3d</button>
+
+    <div id="output"></div>
+
+    <script>
+      // inisialisasi array 2 dimensi
+      const array2D = [
+        ["anggur", "apel", "jeruk"],
+        ["mangga", "pisang", "kiwi"],
+        ["semangka", "nanas", "stoberi"],
+      ];
+
+      //   inisialisasi array 3 dimensi
+      const array3D = [
+        [
+          ["anggur", "apel"],
+          ["jeruk", "mangga"],
+        ],
+        [
+          ["pisang", "kiwi"],
+          ["semangka", "nanas"],
+        ],
+        [
+          ["stoberi", "blueberi"],
+          ["rasberry", "cerry"],
+        ],
+      ];
+
+      //   fungsi menampilkan array 2 dimensi
+      function tampilkanArray2D() {
+        const output = document.getElementById("output");
+        let result = "<strong>isi array 2D: </strong><br>";
+        array2D.forEach((row) => {
+          result += row.join(", " + "<br>");
+        });
+        output.innerHTML = result;
+      }
+
+      //fungsi menampilkan array 3 dimensi
+      function tampilkanArray3D() {
+        const output = document.getElementById("output");
+        let result = "<strong>isi array 3D: </strong><br>";
+        array3D.forEach((matrix) => {
+          matrix.forEach((row) => {
+            result += row.join(", " + "<br>");
+          });
+          result += "<br>"; //tambahkan jarak antar matrix
+        });
+        output.innerHTML = result;
+      }
+    </script>
+  </body>
+</html>

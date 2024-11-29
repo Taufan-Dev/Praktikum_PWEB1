@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table border="1">
+      <thead>
+        <th colspan="2">Perhitungan Gaji</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Golongan</td>
+          <td>
+            <select name="gol">
+              <option value="I">I</option>
+              <option value="II">II</option>
+              <option value="III">III</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Jumlah Anak</td>
+          <td><input type="number" name="anak" size="10" maxlength="10" /></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <button type="button" name="hitung" value="Hitung" onclick="hit()">
+              Hitung
+            </button>
+            <button type="reset" name="batal" value="Cancel">Cancel</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Gaji Pokok</td>
+          <td><input type="number" name="gapok" /></td>
+        </tr>
+        <tr>
+          <td>Tunjangan</td>
+          <td><input type="number" name="tunjangan" /></td>
+        </tr>
+        <tr>
+          <td>Gaji Bersih</td>
+          <td><input type="number" name="gaji" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script>
+      const hit = () => {
+        const golongan = document.querySelector('select[name = "gol"]').value;
+        const anak = parseInt(
+          document.querySelector('input[name="anak"]').value
+        );
+        let gapok = document.querySelector('input[name="gapok"]');
+        let tunjangan = document.querySelector('input[name="tunjangan"]');
+        let gaji = document.querySelector('input[name="gaji"]');
+
+        let persenTunjangan = 0;
+
+        if (golongan == "I") {
+          gapok.value = 250000;
+          persenTunjangan = 5 / 100;
+        } else if (golongan == "II") {
+          gapok.value = 300000;
+          persenTunjangan = 10 / 100;
+        } else if (golongan == "III") {
+          gapok.value = 350000;
+          persenTunjangan = 15 / 100;
+        }
+
+        tunjangan.value = anak * parseInt(gapok.value) * persenTunjangan;
+        gaji.value = parseInt(gapok.value) + parseInt(tunjangan.value);
+      };
+    </script>
+  </body>
+</html>

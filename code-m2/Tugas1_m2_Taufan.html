@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <h1>Form Pemesanan</h1>
+    <form
+      method="get"
+      style="
+        background-color: #f1f5f9;
+        padding: 20px;
+        max-width: 100%;
+        margin: auto;
+      "
+    >
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label for="idPesanan" style="width: 150px">ID Pesanan:</label>
+        <input type="number" name="idPesanan" required style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Nama Pemesan:</label>
+        <input type="text" style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Nomor Identitas:</label>
+        <input type="text" style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Tipe Kamar:</label>
+        <select>
+          <option>--Pilih--</option>
+          <option>STANDAR</option>
+          <option>DELUXE</option>
+          <option>FAMILY</option>
+        </select>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Harga:</label>
+        <input type="text" style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Tanggal Pesan:</label>
+        <input type="date" style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Durasi Menginap:</label>
+        <input type="number" /> <span>hari</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Termasuk Breakfast:</label>
+        <input type="checkbox" style="margin-left: 10px" /> Ya
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Total Bayar:</label>
+        <input type="text" disabled style="width: 100%" />
+      </div>
+      <div style="text-align: center">
+        <button
+          name="save"
+          value="simpan"
+          style="margin-right: 10px; background-color: blue; color: white"
+        >
+          SIMPAN
+        </button>
+        <button
+          type="reset"
+          name="cancel"
+          value="batal"
+          style="margin-right: 10px; background-color: red; color: white"
+        >
+          BATAL
+        </button>
+      </div>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Nilai</title>
+    <style>
+      body {
+        background-color: #f8f9fa;
+        color: #343a40;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+      }
+      .form-container {
+        border: 2px solid #007bff;
+        border-radius: 10px;
+        padding: 30px;
+        margin: 20px auto;
+        width: 750px;
+        background-color: #ffffff;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      select,
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        box-sizing: border-box;
+        transition: border-color 0.3s;
+      }
+      select:focus,
+      input:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+      button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Input Data</h2>
+      <div class="form-group">
+       <label for="Matkul">Pilih Mata Kuliah</label>
+        <select name="matkul">
+          <option value="-">---Pilih salah satu---</option>
+          <option value="pweb">Pemrograman Web 1</option>
+          <option value="bp">Bahasa Pemrograman</option>
+          <option value="agama">Agama</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="namaDosen">Nama Dosen</label>
+        <input type="text" id="namaDosen" name="namaDosen" required />
+      </div>
+      <div class="form-group">
+        <label for="sks">SKS</label>
+        <input type="number" id="sks" name="sks" required />
+      </div>
+      <div class="form-group">
+        <label for="namaMahasiswa">Nama Mahasiswa</label>
+        <input type="text" id="namaMahasiswa" name="namaMahasiswa" required />
+      </div>
+      <div class="form-group">
+        <label for="kehadiran">Jumlah Kehadiran</label>
+        <input type="number" id="kehadiran" name="kehadiran" required />
+      </div>
+      <div class="form-group">
+        <label for="nilaiTugas">Nilai Tugas</label>
+        <input type="number" id="nilaiTugas" name="nilaiTugas" required />
+      </div>
+      <div class="form-group">
+        <label for="nilaiQuiz">Nilai Quiz</label>
+        <input type="number" id="nilaiQuiz" name="nilaiQuiz" required />
+      </div>
+      <div class="form-group">
+        <label for="nilaiUTS">Nilai UTS</label>
+        <input type="number" id="nilaiUTS" name="nilaiUTS" required />
+      </div>
+      <div class="form-group">
+        <label for="nilaiUAS">Nilai UAS</label>
+        <input type="number" id="nilaiUAS" name="nilaiUAS" required />
+      </div>
+      <div class="form-group">
+        <label for="nilaiAkhir">Nilai Akhir</label>
+        <input type="number" id="nilaiAkhir" name="nilaiAkhir" required />
+      </div>
+      <div class="form-group">
+        <label for="nilaiHuruf">Nilai Huruf</label>
+        <input type="text" id="nilaiHuruf" name="nilaiHuruf" required />
+      </div>
+      <button type="submit">Simpan Data</button>
+    </div>
+  </body>
+</html>

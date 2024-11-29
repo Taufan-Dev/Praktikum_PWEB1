@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tambah Data Kamar</title>
+    <link rel="stylesheet" href="css/Tugas2.css" />
+    <script>
+      document
+        .getElementById("roomForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault(); // Mencegah form untuk submit secara default
+
+          // Mengambil data dari form
+          const roomName = document.getElementById("roomName").value;
+          const roomType = document.getElementById("roomType").value;
+          const price = document.getElementById("price").value;
+          const availability = document.getElementById("availability").value;
+
+          // Validasi input
+          if (roomName && roomType && price && availability) {
+            // Menampilkan data kamar yang baru ditambahkan
+            document.getElementById("result").innerHTML = `
+            <h3>Data Kamar Ditambahkan:</h3>
+            <p><strong>Nama Kamar:</strong> ${roomName}</p>
+            <p><strong>Tipe Kamar:</strong> ${roomType}</p>
+            <p><strong>Harga:</strong> Rp ${price}</p>
+            <p><strong>Ketersediaan:</strong> ${availability}</p>
+        `;
+
+            // Mengosongkan form setelah data ditampilkan
+            document.getElementById("roomForm").reset();
+          } else {
+            alert("Semua data harus diisi!");
+          }
+        });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Tambah Data Kamar</h2>
+      <form id="roomForm">
+        <div class="form-group">
+          <label for="roomName">Nama Kamar</label>
+          <input type="text" id="roomName" name="roomName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="roomType">Tipe Kamar</label>
+          <select id="roomType" name="roomType" required>
+            <option value="">Pilih Tipe</option>
+            <option value="Single">Single</option>
+            <option value="Double">Double</option>
+            <option value="Suite">Suite</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Harga</label>
+          <input type="number" id="price" name="price" required />
+        </div>
+
+        <div class="form-group">
+          <label for="availability">Ketersediaan</label>
+          <select id="availability" name="availability" required>
+            <option value="Available">Tersedia</option>
+            <option value="Not Available">Tidak Tersedia</option>
+          </select>
+        </div>
+
+        <button type="submit">Tambah Kamar</button>
+      </form>
+
+      <div id="result"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

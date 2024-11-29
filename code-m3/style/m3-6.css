@@ -1,0 +1,41 @@
+. {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  background-color: #ddd;
+  text-align: center;
+  padding: 10px;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+}
+
+.sidebar,
+.rightbar {
+  background-color: #f0f0f0;
+  padding: 10px;
+  flex: 1;
+}
+
+.content {
+  background-color: #e0e0e0;
+  padding: 10px;
+  flex: 2;
+}
+
+.footer {
+  background-color: #ddd;
+  text-align: center;
+  padding: 10px;
+}

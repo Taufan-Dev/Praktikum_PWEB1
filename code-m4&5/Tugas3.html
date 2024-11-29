@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Pemesanan</title>
+  </head>
+  <body>
+    <h1>Form Pemesanan</h1>
+    <form
+      method="get"
+      style="
+        background-color: #f1f5f9;
+        padding: 20px;
+        max-width: 100%;
+        margin: auto;
+      "
+    >
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label for="idPesanan" style="width: 150px">ID Pesanan:</label>
+        <input type="number" name="idPesanan" required style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Nama Pemesan:</label>
+        <input type="text" name="namaPemesan" style="width: 100%" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Nomor Identitas:</label>
+        <input type="text" style="width: 100%" name="nomorIdentitas" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Tipe Kamar:</label>
+        <select name="tipeKamar" onchange="handleChangeRoomType()">
+          <option>--Pilih--</option>
+          <option value="standar">STANDAR</option>
+          <option value="deluxe">DELUXE</option>
+          <option value="family">FAMILY</option>
+        </select>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Harga:</label>
+        <input type="text" style="width: 100%" name="harga" disabled />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Tanggal Pesan:</label>
+        <input type="date" style="width: 100%" name="tanggalPesan" />
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Durasi Menginap:</label>
+        <input type="number" name="durasiMenginap" /> <span>hari</span>
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Termasuk Breakfast:</label>
+        <input type="checkbox" style="margin-left: 10px" name="breakfest" /> Ya
+      </div>
+      <div style="display: flex; align-items: center; margin-bottom: 15px">
+        <label style="width: 150px">Total Bayar:</label>
+        <input
+          type="text"
+          disabled
+          style="width: 100%"
+          name="totalBayar"
+          disabled
+        />
+      </div>
+      <div style="text-align: center">
+        <button
+          type="button"
+          name="save"
+          value="simpan"
+          style="margin-right: 10px; background-color: blue; color: white"
+          onclick="submitForm()"
+        >
+          SIMPAN
+        </button>
+        <button
+          type="reset"
+          name="cancel"
+          value="batal"
+          style="margin-right: 10px; background-color: red; color: white"
+        >
+          BATAL
+        </button>
+      </div>
+    </form>
+
+    <!-- Div untuk menampilkan nota (resume) -->
+    <div
+      id="nota"
+      style="
+        margin-top: 30px;
+        background-color: #e7f7e7;
+        padding: 20px;
+        border-radius: 10px;
+        display: none;
+      "
+    >
+      <h3>Nota Pemesanan</h3>
+      <table style="width: 100%; border-collapse: collapse">
+        <tr>
+          <td>Kode Pesanan</td>
+          <td>=</td>
+          <td id="resumeIdPesanan"></td>
+        </tr>
+        <tr>
+          <td>Nama Pemesan</td>
+          <td>=</td>
+          <td id="resumeNamaPemesan"></td>
+        </tr>
+        <tr>
+          <td>Nomor Identitas</td>
+          <td>=</td>
+          <td id="resumeNomorIdentitas"></td>
+        </tr>
+        <tr>
+          <td>Tipe Kamar</td>
+          <td>=</td>
+          <td id="resumeTipeKamar"></td>
+        </tr>
+        <tr>
+          <td>Harga</td>
+          <td>=</td>
+          <td id="resumeHarga"></td>
+        </tr>
+        <tr>
+          <td>Tanggal Pesan</td>
+          <td>=</td>
+          <td id="resumeTanggalPesan"></td>
+        </tr>
+        <tr>
+          <td>Durasi Menginap</td>
+          <td>=</td>
+          <td id="resumeDurasiMenginap"></td>
+        </tr>
+        <tr>
+          <td>Breakfast</td>
+          <td>=</td>
+          <td id="resumeBreakfast"></td>
+        </tr>
+        <tr>
+          <td>Jumlah Bayar</td>
+          <td>=</td>
+          <td id="resumeTotalBayar"></td>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+      let priceByRoomType;
+      const submitForm = () => {
+        const withBreakfast = document.querySelector("input[name='breakfest']");
+        const totalPrice = document.querySelector("input[name='totalBayar']");
+        const rentDuration = document.querySelector(
+          "input[name='durasiMenginap']"
+        );
+        const idPesanan = document.querySelector(
+          "input[name='idPesanan']"
+        ).value;
+        const namaPemesan = document.querySelector(
+          "input[name='namaPemesan']"
+        ).value;
+        const nomorIdentitas = document.querySelector(
+          "input[name='nomorIdentitas']"
+        ).value;
+        const tipeKamar = document.querySelector(
+          "select[name='tipeKamar']"
+        ).value;
+        const tanggalPesan = document.querySelector(
+          "input[name='tanggalPesan']"
+        ).value;
+
+        // Hitung total bayar
+        totalPrice.value = "";
+        if (withBreakfast.checked) {
+          totalPrice.value += priceByRoomType + 80000;
+        } else {
+          totalPrice.value += priceByRoomType;
+        }
+
+        if (rentDuration.value > 3) {
+          const discountCount = totalPrice.value * 0.3; // hitung persen
+          totalPrice.value -= discountCount;
+        }
+
+        // Tampilkan hasil nota
+        document.getElementById("resumeIdPesanan").textContent = idPesanan;
+        document.getElementById("resumeNamaPemesan").textContent = namaPemesan;
+        document.getElementById("resumeNomorIdentitas").textContent =
+          nomorIdentitas;
+        document.getElementById("resumeTipeKamar").textContent = tipeKamar;
+        document.getElementById("resumeHarga").textContent = priceByRoomType;
+        document.getElementById("resumeTanggalPesan").textContent =
+          tanggalPesan;
+        document.getElementById("resumeDurasiMenginap").textContent =
+          rentDuration.value;
+        document.getElementById("resumeBreakfast").textContent =
+          withBreakfast.checked ? "Ya" : "Tidak";
+        document.getElementById("resumeTotalBayar").textContent =
+          totalPrice.value;
+
+        // Tampilkan div nota
+        document.getElementById("nota").style.display = "block";
+      };
+
+      const handleChangeRoomType = () => {
+        const price = document.querySelector("input[name='harga']");
+        const roomType = document.querySelector(
+          "select[name='tipeKamar']"
+        ).value;
+
+        if (roomType == "standar") {
+          priceByRoomType = 100000;
+        } else if (roomType == "deluxe") {
+          priceByRoomType = 200000;
+        } else if (roomType == "family") {
+          priceByRoomType = 300000;
+        }
+
+        price.value = priceByRoomType;
+      };
+    </script>
+  </body>
+</html>

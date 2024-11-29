@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARRAY 1 DIMENSI TAUFAN</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      #output {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Contoh Penggunaan Array 1 Dimensi</h1>
+    <input type="text" id="inputValue" placeholder="Masukkan nama buah-buahan" />
+    <button onclick="tambah()">Tambah (push)</button>
+    <button onclick="hapus()">Hapus (pop)</button>
+
+    <div id="output"></div>
+
+    <script>
+      // Inisialisasi array
+      let buah = [];
+
+      // Fungsi menambah elemen ke array
+      function tambah() {
+        const input = document.getElementById("inputValue").value;
+        if (input) {
+          buah.push(input);
+          document.getElementById("inputValue").value = "";
+          tampilkan();
+        }
+      }
+
+      // Fungsi untuk menghapus elemen terakhir dari array
+      function hapus() {
+        if (buah.length > 0) {
+          buah.pop();
+          tampilkan();
+        } else {
+          alert("Buah-buahan kosong");
+        }
+      }
+
+      // Fungsi untuk menampilkan isi array
+      function tampilkan() {
+        const output = document.getElementById("output");
+        output.innerHTML = `<strong>Isi buah-buahan:</strong> ${buah.join(", ")}`;
+      }
+    </script>
+  </body>
+</html>
