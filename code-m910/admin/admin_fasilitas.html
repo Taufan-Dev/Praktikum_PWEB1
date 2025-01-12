@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel | Fasilitas</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        min-height: 100vh;
+        background-color: #f4f4f9;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 250px;
+        background-color: #333;
+        color: white;
+        padding-top: 30px;
+        position: fixed;
+        height: 100%;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar .logo {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar ul li {
+        padding: 15px 20px;
+      }
+
+      .sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        display: block;
+        transition: background-color 0.3s ease;
+      }
+
+      .sidebar ul li a:hover {
+        background-color: #444;
+      }
+
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        width: calc(100% - 250px);
+        transition: all 0.3s ease;
+      }
+
+      .main-content h1 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #333;
+      }
+
+      .admin-section h2 {
+        margin-bottom: 20px;
+      }
+
+      .form-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .form-container input,
+      .form-container textarea {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .form-container img {
+        max-width: 200px;
+        margin-top: 10px;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        overflow-x: auto;
+      }
+
+      .table th,
+      .table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      .table th {
+        background-color: #333;
+        color: white;
+      }
+
+      .table td {
+        background-color: #fff;
+      }
+
+      .btn {
+        background-color: #7daeb3;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #6a9f9b;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 200px;
+        }
+
+        .main-content {
+          margin-left: 200px;
+          width: calc(100% - 200px);
+        }
+      }
+
+      @media (max-width: 576px) {
+        body {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: fixed;
+        }
+
+        .main-content {
+          margin-left: 0;
+          width: 100%;
+          padding-top: 250px;
+        }
+
+        .table {
+          font-size: 0.9rem;
+        }
+
+        .table-container {
+          width: 100%;
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">Admin Panel</div>
+      <ul>
+        <li><a href="admin_kamar.html">Mengelola Jenis Kamar</a></li>
+        <li><a href="admin_fasilitas.html">Mengelola Fasilitas</a></li>
+        <li><a href="admin_pemesanan.html">Data Pemesanan Konsumen</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Admin Panel</h1>
+
+      <div class="admin-section">
+        <h2>Mengelola Fasilitas</h2>
+        <button class="btn" id="btnTambahFasilitas">Tambah Fasilitas</button>
+
+        <div class="form-container" id="formContainer" style="display: none">
+          <h3>Tambah Fasilitas Baru</h3>
+          <form id="formFasilitas">
+            <input type="hidden" id="idFasilitas" />
+            <label for="namaFasilitas">Nama Fasilitas</label>
+            <input
+              type="text"
+              id="namaFasilitas"
+              placeholder="Masukkan nama fasilitas"
+              required
+            />
+            <label for="keteranganFasilitas">Keterangan</label>
+            <textarea
+              id="keteranganFasilitas"
+              rows="4"
+              placeholder="Masukkan keterangan fasilitas"
+              required
+            ></textarea>
+            <label for="gambarFasilitas">Upload Gambar</label>
+            <input type="file" id="gambarFasilitas" accept="image/*" />
+            <img
+              id="previewGambar"
+              src=""
+              alt="Preview Gambar"
+              style="display: none"
+            />
+            <button type="submit" class="btn">Simpan Fasilitas</button>
+            <button type="button" class="btn" id="btnCancel">Batal</button>
+          </form>
+        </div>
+
+        <table class="table" id="tabelFasilitas">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Fasilitas</th>
+              <th>Keterangan</th>
+              <th>Gambar</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      let fasilitas = [];
+
+      function tampilkanDataFasilitas() {
+        const tabel = document
+          .getElementById("tabelFasilitas")
+          .querySelector("tbody");
+        tabel.innerHTML = "";
+        fasilitas.forEach((f, index) => {
+          const row = tabel.insertRow();
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${f.nama}</td>
+            <td>${f.keterangan}</td>
+            <td><img src="${f.gambar}" style="width: 100px;" /></td>
+            <td>
+              <button class="btn" onclick="editFasilitas(${index})">Edit</button>
+              <button class="btn" onclick="hapusFasilitas(${index})">Hapus</button>
+            </td>
+          `;
+        });
+      }
+
+      document.getElementById("btnTambahFasilitas").onclick = function () {
+        document.getElementById("formContainer").style.display = "block";
+        document.getElementById("formFasilitas").reset();
+        document.getElementById("previewGambar").style.display = "none";
+      };
+
+      document.getElementById("formFasilitas").onsubmit = function (event) {
+        event.preventDefault();
+        const id = document.getElementById("idFasilitas").value;
+        const nama = document.getElementById("namaFasilitas").value;
+        const keterangan = document.getElementById("keteranganFasilitas").value;
+        const gambar = document.getElementById("gambarFasilitas").files[0]
+          ? URL.createObjectURL(
+              document.getElementById("gambarFasilitas").files[0]
+            )
+          : "";
+
+        if (id) {
+          fasilitas[id].nama = nama;
+          fasilitas[id].keterangan = keterangan;
+          fasilitas[id].gambar = gambar;
+        } else {
+          fasilitas.push({ nama, keterangan, gambar });
+        }
+        tampilkanDataFasilitas();
+        document.getElementById("formContainer").style.display = "none";
+      };
+
+      function editFasilitas(index) {
+        document.getElementById("idFasilitas").value = index;
+        document.getElementById("namaFasilitas").value = fasilitas[index].nama;
+        document.getElementById("keteranganFasilitas").value =
+          fasilitas[index].keterangan;
+        document.getElementById("previewGambar").src = fasilitas[index].gambar;
+        document.getElementById("previewGambar").style.display = "block";
+        document.getElementById("formContainer").style.display = "block";
+      }
+
+      function hapusFasilitas(index) {
+        if (confirm("Apakah Anda yakin ingin menghapus fasilitas ini?")) {
+          fasilitas.splice(index, 1);
+          tampilkanDataFasilitas();
+        }
+      }
+
+      document.getElementById("btnCancel").onclick = function () {
+        document.getElementById("formContainer").style.display = "none";
+      };
+
+      document.getElementById("gambarFasilitas").onchange = function (event) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("previewGambar").src = e.target.result;
+          document.getElementById("previewGambar").style.display = "block";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      };
+    </script>
+  </body>
+</html>

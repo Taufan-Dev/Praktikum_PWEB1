@@ -23,3 +23,100 @@
   z-index: 2;
   color: white;
 }
+
+/* CSS untuk menampilkan fasilitas ketika card di-hover */
+.card:hover .fasilitas {
+  display: block; /* Tampilkan fasilitas */
+  transition: display 0.3s ease-in-out;
+}
+
+.card .fasilitas {
+  display: none; /* Sembunyikan fasilitas secara default */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9); /* Background transparan */
+  border-top: 1px solid #ddd;
+}
+
+.icon-box {
+  padding: 20px;
+  border: 2px solid #333; /* Border seragam */
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.icon-box:hover {
+  transform: translateY(-10px); /* Efek hover */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+}
+
+.icon-box i {
+  color: #000; /* Warna ikon hitam */
+  margin-bottom: 10px; /* Jarak ikon dengan teks */
+}
+
+.icon-box p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.accordion-button {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #f8f9fa;
+  color: #000;
+}
+
+.accordion-body {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+}
+/* Warna hover untuk header accordion */
+.accordion-button:hover {
+  background-color: #efbf04 !important;
+  color: #fff !important;
+}
+
+/* Warna saat header aktif */
+.accordion-button:not(.collapsed) {
+  background-color: #efbf04 !important;
+  color: #fff !important;
+}
+
+/* Warna teks jawaban tetap hitam */
+.accordion-body {
+  color: #000 !important;
+}
+
+/* Transisi halus untuk efek hover */
+.accordion-button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

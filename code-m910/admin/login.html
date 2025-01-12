@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Login Form</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Quicksand", sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f7f7f7;
+      }
+
+      .container {
+        display: flex;
+        height: 100%;
+      }
+
+      /* Gambar dengan overlay */
+      .left-column {
+        position: relative;
+        flex: 1;
+        background-image: url(./../assets/img/1.jpg);
+        background-size: cover;
+        background-position: center;
+      }
+
+      .left-column::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Overlay hitam */
+      }
+
+      .overlay-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 3rem;
+        font-weight: 700;
+      }
+
+      /* Form login */
+      .right-column {
+        flex: 1;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+      }
+
+      .form-container {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .form-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-control {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        width: 100%;
+      }
+
+      .btn-login {
+        padding: 10px;
+        width: 100%;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 5px;
+      }
+      .form-container p {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .form-container p a {
+        color: #6a9f9b;
+        text-decoration: none;
+      }
+
+      .form-container p a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+
+        .left-column,
+        .right-column {
+          flex: none;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left Column with Image and Overlay -->
+      <div class="left-column">
+        <div class="overlay-text">Login</div>
+      </div>
+
+      <!-- Right Column with Form -->
+      <div class="right-column">
+        <div class="form-container">
+          <h2>Login</h2>
+          <form>
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input
+                type="text"
+                id="username"
+                class="form-control"
+                placeholder="Enter Username"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="Enter Password"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-outline-dark btn-login">
+              Login
+            </button>
+
+            <p>Don't have an account? <a href="#">Sign up here</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

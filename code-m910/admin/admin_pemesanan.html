@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel | Data Pemesanan</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        min-height: 100vh;
+        background-color: #f4f4f9;
+      }
+
+      .sidebar {
+        width: 250px;
+        background-color: #333;
+        color: white;
+        padding-top: 30px;
+        position: fixed;
+        height: 100%;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar .logo {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar ul li {
+        padding: 15px 20px;
+      }
+
+      .sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        display: block;
+        transition: background-color 0.3s ease;
+      }
+
+      .sidebar ul li a:hover {
+        background-color: #444;
+      }
+
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        width: calc(100% - 250px);
+        transition: all 0.3s ease;
+      }
+
+      .main-content h1 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #333;
+      }
+
+      .admin-section h2 {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      .admin-section .btn {
+        background-color: #7daeb3;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .admin-section .btn:hover {
+        background-color: #6a9f9b;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        overflow-x: auto;
+      }
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      .table th,
+      .table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      .table th {
+        background-color: #333;
+        color: white;
+      }
+
+      .table td {
+        background-color: #fff;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 200px;
+        }
+
+        .main-content {
+          margin-left: 200px;
+          width: calc(100% - 200px);
+        }
+      }
+
+      @media (max-width: 576px) {
+        body {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: static;
+        }
+
+        .main-content {
+          margin-left: 0;
+          width: 100%;
+        }
+
+        .table {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">Admin Panel</div>
+      <ul>
+        <li><a href="admin_kamar.html">Mengelola Jenis Kamar</a></li>
+        <li><a href="admin_fasilitas.html">Mengelola Fasilitas</a></li>
+        <li><a href="admin_pemesanan.html">Data Pemesanan Konsumen</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Admin Panel</h1>
+
+      <!-- Data Pemesanan Konsumen -->
+      <div class="admin-section">
+        <h2>Data Pemesanan Konsumen</h2>
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID Pemesanan</th>
+                <th>Nama Konsumen</th>
+                <th>Kamar</th>
+                <th>Tanggal Check-in</th>
+                <th>Tanggal Check-out</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

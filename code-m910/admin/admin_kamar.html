@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel | Hotel</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        min-height: 100vh;
+        background-color: #f4f4f9;
+      }
+
+      .sidebar {
+        width: 250px;
+        background-color: #333;
+        color: white;
+        padding-top: 30px;
+        position: fixed;
+        height: 100%;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar .logo {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar ul li {
+        padding: 15px 20px;
+      }
+
+      .sidebar ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+        display: block;
+        transition: background-color 0.3s ease;
+      }
+
+      .sidebar ul li a:hover {
+        background-color: #444;
+      }
+
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+        width: calc(100% - 250px);
+        transition: all 0.3s ease;
+      }
+
+      .main-content h1 {
+        margin-bottom: 20px;
+        font-size: 2rem;
+        color: #333;
+      }
+
+      .admin-section h2 {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+        color: #333;
+      }
+
+      .admin-section .btn {
+        background-color: #7daeb3;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .admin-section .btn:hover {
+        background-color: #6a9f9b;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      .table th,
+      .table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      .table th {
+        background-color: #333;
+        color: white;
+      }
+
+      .table td {
+        background-color: #fff;
+      }
+
+      .form-container {
+        margin-top: 20px;
+        margin-bottom: 40px;
+      }
+
+      .form-container form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .form-container input,
+      .form-container select {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .form-container img {
+        max-width: 200px;
+        margin-top: 10px;
+      }
+
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 200px;
+        }
+
+        .main-content {
+          margin-left: 200px;
+          width: calc(100% - 200px);
+        }
+
+        .form-container form {
+          padding: 10px;
+        }
+
+        .table-container {
+          margin-top: 20px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        body {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: fixed;
+        }
+
+        .main-content {
+          margin-left: 0;
+          width: 100%;
+          margin-top: 250px;
+        }
+
+        .table-container {
+          overflow-x: auto;
+          width: 100%;
+        }
+
+        .table {
+          font-size: 0.9rem;
+        }
+
+        .form-container input,
+        .form-container select {
+          font-size: 0.9rem;
+        }
+
+        .form-container img {
+          max-width: 150px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="logo">Admin Panel</div>
+      <ul>
+        <li><a href="admin_kamar.html">Mengelola Jenis Kamar</a></li>
+        <li><a href="admin_fasilitas.html">Mengelola Fasilitas</a></li>
+        <li><a href="admin_pemesanan.html">Data Pemesanan Konsumen</a></li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <h1>Admin Panel</h1>
+
+      <!-- Mengelola Jenis Kamar -->
+      <div class="admin-section">
+        <h2>Mengelola Jenis Kamar</h2>
+        <button class="btn" id="btnTambahKamar">Tambah Kamar Baru</button>
+
+        <!-- Form untuk menambah/merubah kamar -->
+        <div class="form-container" id="formContainer" style="display: none">
+          <h3>Tambah Kamar Baru</h3>
+          <form id="formKamar">
+            <input type="hidden" id="idKamar" />
+            <label for="namaKamar">Nama Kamar</label>
+            <input
+              type="text"
+              id="namaKamar"
+              placeholder="Masukkan nama kamar"
+              required
+            />
+            <label for="hargaKamar">Harga per Malam</label>
+            <input
+              type="number"
+              id="hargaKamar"
+              placeholder="Masukkan harga per malam"
+              required
+            />
+            <label for="fasilitasKamar">Fasilitas</label>
+            <input
+              type="text"
+              id="fasilitasKamar"
+              placeholder="Masukkan fasilitas kamar"
+              required
+            />
+            <label for="gambarKamar">Upload Gambar Kamar</label>
+            <input type="file" id="gambarKamar" accept="image/*" />
+            <img
+              id="previewGambar"
+              src=""
+              alt="Preview Gambar"
+              style="display: none"
+            />
+            <button type="submit" class="btn" id="btnSubmit">
+              Simpan Kamar
+            </button>
+            <button type="button" class="btn" id="btnCancel">Batal</button>
+          </form>
+        </div>
+
+        <!-- Tabel kamar -->
+        <table class="table" id="tabelKamar">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Kamar</th>
+              <th>Harga per Malam</th>
+              <th>Fasilitas</th>
+              <th>Gambar</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      let kamar = [
+        {
+          id: 1,
+          nama: "Suite Premium",
+          harga: 2000000,
+          fasilitas: "Wi-Fi, Spa, Pemandangan Laut",
+          gambar: "https://via.placeholder.com/200",
+        },
+        {
+          id: 2,
+          nama: "Kamar Deluxe",
+          harga: 500000,
+          fasilitas: "Mini Bar, Kolam Renang",
+          gambar: "https://via.placeholder.com/200",
+        },
+      ];
+
+      function tampilkanDataKamar() {
+        const tabel = document
+          .getElementById("tabelKamar")
+          .getElementsByTagName("tbody")[0];
+        tabel.innerHTML = "";
+        kamar.forEach((k) => {
+          const row = tabel.insertRow();
+          row.innerHTML = `
+      <td>${k.id}</td>
+      <td>${k.nama}</td>
+      <td>Rp ${k.harga.toLocaleString()}</td> <!-- Ganti dollar dengan Rp dan format angka -->
+      <td>${k.fasilitas}</td>
+      <td><img src="${
+        k.gambar
+      }" alt="Gambar Kamar" style="width: 100px; height: auto;" /></td>
+      <td>
+        <button class="btn" onclick="editKamar(${k.id})">Edit</button>
+        <button class="btn" onclick="hapusKamar(${k.id})">Hapus</button>
+      </td>
+    `;
+        });
+      }
+
+      window.onload = tampilkanDataKamar;
+
+      document.getElementById("btnTambahKamar").onclick = function () {
+        document.getElementById("formContainer").style.display = "block";
+        document.getElementById("formKamar").reset();
+        document.getElementById("idKamar").value = "";
+        document.getElementById("btnSubmit").innerText = "Simpan Kamar";
+        document.getElementById("previewGambar").style.display = "none";
+      };
+
+      document.getElementById("formKamar").onsubmit = function (event) {
+        event.preventDefault();
+        const id = document.getElementById("idKamar").value;
+        const nama = document.getElementById("namaKamar").value;
+        const harga = parseInt(document.getElementById("hargaKamar").value);
+        const fasilitas = document.getElementById("fasilitasKamar").value;
+        const gambar = document.getElementById("gambarKamar").files[0]
+          ? URL.createObjectURL(document.getElementById("gambarKamar").files[0])
+          : "";
+
+        if (id) {
+          const kamarEdit = kamar.find((k) => k.id === parseInt(id));
+          kamarEdit.nama = nama;
+          kamarEdit.harga = harga;
+          kamarEdit.fasilitas = fasilitas;
+          kamarEdit.gambar = gambar;
+        } else {
+          const kamarBaru = {
+            id: kamar.length + 1,
+            nama: nama,
+            harga: harga,
+            fasilitas: fasilitas,
+            gambar: gambar,
+          };
+          kamar.push(kamarBaru);
+        }
+
+        tampilkanDataKamar();
+        document.getElementById("formContainer").style.display = "none";
+      };
+
+      document.getElementById("btnCancel").onclick = function () {
+        document.getElementById("formContainer").style.display = "none";
+      };
+
+      function editKamar(id) {
+        const kamarEdit = kamar.find((k) => k.id === id);
+        document.getElementById("idKamar").value = kamarEdit.id;
+        document.getElementById("namaKamar").value = kamarEdit.nama;
+        document.getElementById("hargaKamar").value = kamarEdit.harga;
+        document.getElementById("fasilitasKamar").value = kamarEdit.fasilitas;
+        document.getElementById("previewGambar").src = kamarEdit.gambar;
+        document.getElementById("previewGambar").style.display = "block";
+        document.getElementById("formContainer").style.display = "block";
+        document.getElementById("btnSubmit").innerText = "Update Kamar";
+      }
+
+      function hapusKamar(id) {
+        if (confirm("Apakah Anda yakin ingin menghapus kamar ini?")) {
+          kamar = kamar.filter((k) => k.id !== id);
+          tampilkanDataKamar();
+        }
+      }
+
+      document.getElementById("gambarKamar").onchange = function (event) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("previewGambar").src = e.target.result;
+          document.getElementById("previewGambar").style.display = "block";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      };
+    </script>
+  </body>
+</html>

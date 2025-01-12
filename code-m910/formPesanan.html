@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>The Golden</title>
+    <style>
+      body {
+        background-color: #f7f7f7;
+        font-family: "Quicksand", sans-serif;
+      }
+
+      .form-container {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 30px auto;
+      }
+
+      .form-container h2 {
+        text-align: center;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .form-group label {
+        font-weight: 500;
+      }
+
+      .form-control {
+        border-radius: 5px;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: #6a9f9b;
+        box-shadow: 0 0 5px rgba(106, 159, 155, 0.5);
+      }
+
+      .btn-custom {
+        width: 48%;
+        padding: 10px;
+        font-size: 1rem;
+        border-radius: 5px;
+        font-weight: 600;
+      }
+
+      .btn-save {
+        background-color: #6a9f9b;
+        color: white;
+      }
+
+      .btn-save:hover {
+        background-color: #5c8c87;
+      }
+
+      .btn-cancel {
+        background-color: #ee6a60;
+        color: white;
+      }
+
+      .btn-cancel:hover {
+        background-color: #d85c54;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      /* Responsive */
+      @media (max-width: 767px) {
+        .form-container {
+          padding: 20px;
+        }
+
+        .button-container {
+          flex-direction: column;
+        }
+
+        .btn-custom {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+
+    <script src="js/jquery-3.7.1.js"></script>
+    <script>
+      $(document).ready(function () {
+        function calculateTotal() {
+          const tipeKamar = $("#tipeKamar").val();
+          const durasiMenginap = parseInt($("#durasiMenginap").val(), 10) || 0;
+          const breakfast = $("#breakfast").is(":checked");
+          let harga = 0;
+
+          if (tipeKamar === "standar") {
+            harga = 500000;
+          } else if (tipeKamar === "deluxe") {
+            harga = 1000000;
+          } else if (tipeKamar === "family") {
+            harga = 2000000;
+          }
+
+          const biayaMenginap = harga * durasiMenginap;
+          const diskon = durasiMenginap > 3 ? 0.1 * biayaMenginap : 0;
+          const biayaBreakfast = breakfast ? 80000 * durasiMenginap : 0;
+          const totalBayar = biayaMenginap - diskon + biayaBreakfast;
+
+          $("#harga").val(harga.toLocaleString("id-ID"));
+          $("#totalBayar").val(totalBayar.toLocaleString("id-ID"));
+        }
+
+        function validateForm(event) {
+          event.preventDefault();
+
+          const namaPemesan = $("#namaPemesanan").val().trim();
+          const nomorIdentitas = $("#nomorIdentitas").val().trim();
+          const durasiMenginap = $("#durasiMenginap").val().trim();
+
+          if (!namaPemesan) {
+            alert("Nama Pemesan harus diisi!");
+            return;
+          }
+
+          if (!/^\d{16}$/.test(nomorIdentitas)) {
+            alert("Nomor Identitas harus berupa 16 digit angka!");
+            return;
+          }
+
+          if (
+            !/^\d+$/.test(durasiMenginap) ||
+            parseInt(durasiMenginap, 10) <= 0
+          ) {
+            alert("Durasi Menginap harus berupa angka lebih dari 0!");
+            return;
+          }
+
+          calculateTotal();
+
+          const resume = `
+                    Nama Pemesan: ${namaPemesan}
+                    Nomor Identitas: ${nomorIdentitas}
+                    Tipe Kamar: ${$("#tipeKamar").val()}
+                    Durasi Menginap: ${durasiMenginap} hari
+                    Diskon: ${durasiMenginap > 3 ? "10%" : "0%"}
+                    Total Bayar: Rp ${$("#totalBayar").val()}
+                `;
+          alert(resume);
+        }
+
+        $("#tipeKamar, #durasiMenginap, #breakfast").on(
+          "change",
+          calculateTotal
+        );
+        $("form").on("submit", validateForm);
+      });
+    </script>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Form Pemesanan</h2>
+      <form>
+        <div class="mb-3">
+          <label for="namaPemesanan" class="form-label">Nama Pemesan:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="namaPemesanan"
+            name="namaPemesanan"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="jenisKelamin" class="form-label">Jenis Kelamin:</label>
+          <select
+            id="jenisKelamin"
+            name="jenisKelamin"
+            class="form-select"
+            required
+          >
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="nomorIdentitas" class="form-label"
+            >Nomor Identitas:</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="nomorIdentitas"
+            name="nomorIdentitas"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="tipeKamar" class="form-label">Tipe Kamar:</label>
+          <select id="tipeKamar" name="tipeKamar" class="form-select" required>
+            <option value="">-- Pilih --</option>
+            <option value="standar">Standar</option>
+            <option value="deluxe">Deluxe</option>
+            <option value="family">Suite</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="harga" class="form-label">Harga:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="harga"
+            name="harga"
+            readonly
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="tanggalPesan" class="form-label">Tanggal Pesan:</label>
+          <input
+            type="date"
+            class="form-control"
+            id="tanggalPesan"
+            name="tanggalPesan"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="durasiMenginap" class="form-label"
+            >Durasi Menginap:</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            id="durasiMenginap"
+            name="durasiMenginap"
+            required
+          />
+        </div>
+
+        <div class="form-check mb-3">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            id="breakfast"
+            name="breakfast"
+          />
+          <label class="form-check-label" for="breakfast"
+            >Termasuk Breakfast</label
+          >
+        </div>
+
+        <div class="mb-3">
+          <label for="totalBayar" class="form-label">Total Bayar:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="totalBayar"
+            name="totalBayar"
+            readonly
+          />
+        </div>
+
+        <div class="button-container">
+          <button type="submit" class="btn btn-custom btn-save">Simpan</button>
+          <a href="index.html" class="btn btn-custom btn-cancel">Batal</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
